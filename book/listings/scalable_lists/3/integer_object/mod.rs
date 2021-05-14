@@ -18,6 +18,16 @@ impl IntegerObject {
         integer_object.set_property("number", number).unwrap();
         integer_object
     }
+
+    pub fn increase_number(self) {
+        let old_number = self
+            .property("number")
+            .expect("The property needs to exist and be readable.")
+            .get::<i32>()
+            .expect("The property needs to be of type `i32`.");
+
+        self.set_property("number", old_number + 1).unwrap();
+    }
 }
 
 impl Default for IntegerObject {

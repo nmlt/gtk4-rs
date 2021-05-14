@@ -76,17 +76,8 @@ fn build_ui(application: &Application) {
             .downcast::<IntegerObject>()
             .expect("The item has to be an `IntegerObject`.");
 
-        // Get "number" from `IntegerObject`
-        let old_number = integer_object
-            .property("number")
-            .expect("The property needs to exist and be readable.")
-            .get::<i32>()
-            .expect("The property needs to be of type `i32`.");
-
         // Increase "number" of `IntegerObject`
-        integer_object
-            .set_property("number", old_number + 1)
-            .unwrap();
+        integer_object.increase_number();
     });
     // ANCHOR_END: list_view_activate
 

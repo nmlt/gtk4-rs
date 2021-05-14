@@ -3,8 +3,8 @@ mod integer_object;
 use gtk::gio;
 use gtk::prelude::*;
 use gtk::{
-    Application, ApplicationWindowBuilder, ConstantExpression, Label, ListView, SingleSelection,
-    PolicyType, PropertyExpression, ScrolledWindowBuilder, SignalListItemFactory,
+    Application, ApplicationWindowBuilder, ConstantExpression, Label, ListView, PolicyType,
+    PropertyExpression, ScrolledWindowBuilder, SignalListItemFactory, SingleSelection,
 };
 use integer_object::IntegerObject;
 
@@ -61,6 +61,7 @@ fn build_ui(application: &Application) {
     let list_view = ListView::new(Some(&selection_model), Some(&factory));
 
     list_view.connect_activate(move |list_view, position| {
+        // Get `IntegerObject` from model
         let model = list_view.model().unwrap();
         let integer_object = model
             .item(position)
@@ -68,15 +69,8 @@ fn build_ui(application: &Application) {
             .downcast::<IntegerObject>()
             .expect("The item has to be an `IntegerObject`.");
 
-        let old_number = integer_object
-            .property("number")
-            .expect("The property needs to exist and be readable.")
-            .get::<i32>()
-            .expect("The property needs to be of type `i32`.");
-
-        integer_object
-            .set_property("number", old_number + 1)
-            .unwrap();
+        // Increase "number" of `IntegerObject`
+        integer_object.increase_number();
     });
 
     let scrolled_window = ScrolledWindowBuilder::new()

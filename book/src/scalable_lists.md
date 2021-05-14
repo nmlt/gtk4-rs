@@ -77,7 +77,16 @@ We can now easily scroll through our long list of integers.
 <div style="text-align:center" width="20%"><img src="img/scalable_lists_demo_1.png"/></div>
 
 Let us see what else we can do.
-In order to interact with our `ListView`, we can connect to its "activate" signal.
+We might want to increase the number every time we activate its row.
+For that we can add the method `increase_number` to our `IntegerObject`.
+
+<span class="filename">Filename: listings/scalable_lists/2/integer_object/mod.rs</span>
+
+```rust,no_run
+{{#rustdoc_include ../listings/scalable_lists/2/integer_object/mod.rs:integer_object}}
+```
+
+In order to interact with our `ListView`, we connect to its "activate" signal.
 
 <span class="filename">Filename: listings/scalable_lists/2/main.rs</span>
 
