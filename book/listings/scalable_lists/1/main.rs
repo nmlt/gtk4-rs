@@ -28,7 +28,7 @@ fn build_ui(application: &Application) {
 
     // ANCHOR: model
     let model = gio::ListStore::new(IntegerObject::static_type());
-    for number in 0..1000 {
+    for number in 0..=1000 {
         let integer_object = IntegerObject::from_integer(number);
         model.append(&integer_object);
     }
@@ -65,7 +65,7 @@ fn build_ui(application: &Application) {
             .downcast::<Label>()
             .expect("The child has to be a `Label`.");
 
-        // Setting "label" to "number"
+        // Set "label" to "number"
         label.set_label(&number.to_string());
     });
     // ANCHOR_END: factory_bind
