@@ -2,7 +2,6 @@ mod imp;
 
 use glib::Object;
 use gtk::glib;
-use gtk::prelude::*;
 
 // ANCHOR: integer_object
 glib::wrapper! {
@@ -15,9 +14,3 @@ impl From<i32> for IntegerObject {
     }
 }
 // ANCHOR_END: integer_object
-
-impl Default for IntegerObject {
-    fn default() -> Self {
-        Self::new()
-    }
-}

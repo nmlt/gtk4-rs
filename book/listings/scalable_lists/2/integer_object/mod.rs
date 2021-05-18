@@ -27,9 +27,3 @@ impl From<i32> for IntegerObject {
         Object::new(&[("number", &number)]).unwrap()
     }
 }
-
-impl Default for IntegerObject {
-    fn default() -> Self {
-        Self::new()
-    }
-}
