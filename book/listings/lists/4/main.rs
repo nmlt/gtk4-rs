@@ -27,8 +27,8 @@ fn build_ui(application: &Application) {
         .build();
 
     let model = gio::ListStore::new(IntegerObject::static_type());
-    for number in 0..=1000 {
-        let integer_object = IntegerObject::from(number);
+    for number in 0..=10_000 {
+        let integer_object = IntegerObject::new(number);
         model.append(&integer_object);
     }
 
