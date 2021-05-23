@@ -29,7 +29,7 @@ The only difference is that it directly inherits from GObject instead of `Button
 
 ```rust,no_run
 {{#rustdoc_include ../listings/lists/2/integer_object/mod.rs:integer_object}}
-
+#
 # // Please ignore this line
 # // It is only there to make mdbook happy
 # fn main() {}
