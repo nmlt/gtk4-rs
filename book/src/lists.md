@@ -1,5 +1,19 @@
 # Lists
 
+<span class="filename">Filename: listings/lists/1/main.rs</span>
+
+```rust,no_run
+{{#rustdoc_include ../listings/lists/1/main.rs:list_box}}
+```
+
+We add `ListBox` to a [`ScrolledWindow`](../docs/gtk/struct.ScrolledWindow.html) so that we can scroll through our elements.
+
+<span class="filename">Filename: listings/lists/1/main.rs</span>
+
+```rust,no_run
+{{#rustdoc_include ../listings/lists/1/main.rs:scrolled_window}}
+```
+
 Sometimes you have more elements than you can display at once.
 The typical solution is to put them into a [`ScrolledWindow`](../docs/gtk/struct.ScrolledWindow.html) so you can scroll through the complete list.
 However, in the most trivial case you would still create one widget per element.
@@ -35,7 +49,7 @@ The only difference is that it directly inherits from GObject instead of `Button
 # fn main() {}
 ```
 
-We start be filling our models with the integers from 0 to 10 000.
+We start be filling our models with the integers from 0 to 100 000.
 
 <span class="filename">Filename: listings/lists/2/main.rs</span>
 
@@ -72,7 +86,7 @@ Then we pass the model and the factory to the [`ListView`](../git/docs/gtk4/stru
 {{#rustdoc_include ../listings/lists/2/main.rs:selection_list}}
 ```
 
-Every `ListView` has to be inside a [`ScrolledWindow`](../docs/gtk/struct.ScrolledWindow.html) so we are adding it to one.
+Every `ListView` has to be inside a `ScrolledWindow` so we are adding it to one.
 
 <span class="filename">Filename: listings/lists/2/main.rs</span>
 

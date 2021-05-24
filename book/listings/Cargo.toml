@@ -113,9 +113,9 @@ name = "saving_window_state_1"
 path = "saving_window_state/1/main.rs"
 
 # lists
-# [[bin]]
-# name = "lists_1"
-# path = "lists/1/main.rs"
+[[bin]]
+name = "lists_1"
+path = "lists/1/main.rs"
 
 [[bin]]
 name = "lists_2"
