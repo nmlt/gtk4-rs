@@ -3,8 +3,8 @@ mod integer_object;
 use gtk::gio;
 use gtk::prelude::*;
 use gtk::{
-    Application, ApplicationWindowBuilder, ConstantExpression, CustomSorter, FilterChange, Label,
-    ListView, PolicyType, PropertyExpression, ScrolledWindowBuilder, SignalListItemFactory,
+    Application, ApplicationWindow, ConstantExpression, CustomSorter, FilterChange, Label,
+    ListView, PolicyType, PropertyExpression, ScrolledWindow, SignalListItemFactory,
     SingleSelection, SortListModel, SorterChange,
 };
 use integer_object::IntegerObject;
@@ -20,7 +20,7 @@ fn main() {
 
 fn build_ui(application: &Application) {
     // Create a window
-    let window = ApplicationWindowBuilder::new()
+    let window = ApplicationWindow::builder()
         .application(application)
         .title("My GTK App")
         .default_width(600)
@@ -128,7 +128,7 @@ fn build_ui(application: &Application) {
     });
     // ANCHOR_END: activate
 
-    let scrolled_window = ScrolledWindowBuilder::new()
+    let scrolled_window = ScrolledWindow::builder()
         .hscrollbar_policy(PolicyType::Never) // Disable horizontal scrolling
         .min_content_width(360)
         .child(&list_view)
