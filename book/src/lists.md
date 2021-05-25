@@ -1,8 +1,9 @@
 # Lists
 
-Sometimes you have more elements than you can display at once.
-GTK provides convinient containers for this like [`ListBox`](../docs/gtk4/struct.ListBox.html) and [`FlowBox`](../docs/gtk4/struct.FlowBox.html).
+Sometimes you want to display a list of elements in a certain arrangement.
+[`ListBox`](../docs/gtk4/struct.ListBox.html) and [`FlowBox`](../docs/gtk4/struct.FlowBox.html) are two container widgets which allow to do this.
 `ListBox` describes a vertical list and `FlowBox` describes a grid.
+
 Let us explore this concept by adding labels to a `ListBox`.
 Each label will display an integer starting from 0 and ranging up to 100.  
 
@@ -25,9 +26,9 @@ Now we can scroll through our elements.
 <div style="text-align:center"><img src="img/lists_list_box.png"/></div>
 
 That was easy enough.
-However, we now create one widget per element.
-Since creating new widgets takes a bit of time, this can become a problem with many element.
-`ListBox` can easily handle a few few thousands of them, but how could we possibly deal with the infinite amount of posts in a social media timeline?
+However, we currently create one widget per element.
+Since creating new widgets takes a bit of time, this can become a problem with many elements.
+`ListBox` can easily handle a few thousands of them, but how could we possibly deal with the infinite amount of posts in a social media timeline?
 
 We use scalable lists instead!
 
@@ -89,7 +90,7 @@ In the "bind" step we bind the data in our model to the individual list items.
 {{#rustdoc_include ../listings/lists/2/main.rs:factory_bind}}
 ```
 
-We only want single items to be selectable so we choose [`SingleSelection`](../docs/gtk4/struct.SingleSelection.html).
+We only want single items to be selectable, so we choose [`SingleSelection`](../docs/gtk4/struct.SingleSelection.html).
 The other options would have been [`MultiSelection`](../docs/gtk4/struct.MultiSelection.html) or [`NoSelection`](../docs/gtk4/struct.NoSelection.html).
 Then we pass the model and the factory to the [`ListView`](../git/docs/gtk4/struct.ListView.html).
 
@@ -99,7 +100,7 @@ Then we pass the model and the factory to the [`ListView`](../git/docs/gtk4/stru
 {{#rustdoc_include ../listings/lists/2/main.rs:selection_list}}
 ```
 
-Every `ListView` has to be inside a `ScrolledWindow` so we are adding it to one.
+Every `ListView` has to be inside a `ScrolledWindow`, so we are adding it to one.
 
 <span class="filename">Filename: listings/lists/2/main.rs</span>
 
@@ -157,7 +158,7 @@ Now let us see how the "setup" step now works.
 {{#rustdoc_include ../listings/lists/4/main.rs:factory_setup}}
 ```
 
-An expressions describes a reference to a value.
+An expression describes a reference to a value.
 So when we create a [`ConstantExpression`](../git/docs/gtk4/struct.ConstantExpression.html) of `list_item`, we create a reference to a `ListItem`.
 We then create a [`PropertyExpression`](../git/docs/gtk4/struct.PropertyExpression.html) to get a reference to the "item" property of `list_item`.
 With another `PropertyExpression` we get a reference to the "number" property of the "item" property of `list_item`.
@@ -202,8 +203,8 @@ After our changes, the application looks like this.
 
 <div style="text-align:center"><img src="img/lists_list_view_2.png"/></div>
 
-We now know how to deal with data which should be displayed in a list.
+We now know how to display a list of data.
 Small amount of elements can be handled by `ListBox` or `FlowBox`.
-They are easy to use and, if necessary, they can also be bound to a model such as [`gio::ListStore`](http://gtk-rs.org/docs/gio/struct.ListStore.html).
-That allows to more easily modify, sort and filter the data.
-However, if we need to widgets to be scalable we still need to use [`ListView`](../git/docs/gtk4/struct.ListView.html), [`ColumnView`](../git/docs/gtk4/struct.ColumnView.html) or [`GridView`](../git/docs/gtk4/struct.GridView.html) instead.
+These widgets are easy to use and allow, if necessary, to be bound to a model such as [`gio::ListStore`](http://gtk-rs.org/docs/gio/struct.ListStore.html).
+Their data can then be more easily be modified, sorted and filtered.
+However, if we need the widgets to be scalable we still need to use [`ListView`](../git/docs/gtk4/struct.ListView.html), [`ColumnView`](../git/docs/gtk4/struct.ColumnView.html) or [`GridView`](../git/docs/gtk4/struct.GridView.html) instead.
