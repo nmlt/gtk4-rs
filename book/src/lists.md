@@ -1,7 +1,7 @@
 # Lists
 
 Sometimes you want to display a list of elements in a certain arrangement.
-[`ListBox`](../docs/gtk4/struct.ListBox.html) and [`FlowBox`](../docs/gtk4/struct.FlowBox.html) are two container widgets which allow to do this.
+[`ListBox`](../docs/gtk4/struct.ListBox.html) and [`FlowBox`](../docs/gtk4/struct.FlowBox.html) are two container widgets which allow you to do this.
 `ListBox` describes a vertical list and `FlowBox` describes a grid.
 
 Let us explore this concept by adding labels to a `ListBox`.
@@ -33,7 +33,7 @@ But how could we possibly deal with the infinite amount of posts in a social med
 
 We use scalable lists instead!
 
-- The **model** holds our data, filters them and describes its order.
+- The **model** holds our data, filters it and describes its order.
 - The **list item factory** defines how the data transforms into widgets.
 - The **view** specifies how the widgets are then arranged.
 
@@ -43,13 +43,13 @@ The following figure demonstrates how this works in practice.
 
 <div style="text-align:center"><img src="img/scalable_lists_concept.png"/></div>
 
-100 000 elements is something `ListBox` will struggle with, so let us this to demonstrate scalable lists.
+100 000 elements is something `ListBox` will struggle with, so let us use this to demonstrate scalable lists.
 
 We start by defining and filling up our model.
 The model is an instance of [`gio::ListStore`](https://gtk-rs.org/docs/gio/struct.ListStore.html).
 The main limitation here is that `gio::ListStore` only accepts GObjects.
 What we would need is a GObject which holds an integer and exposes it as property.
-To get that we just have to slightly adapt the `CustomButton` we created in the subclassing [chapter](gobject_subclassing.html).
+To get that we just have to adapt the `CustomButton` we created in the subclassing [chapter](gobject_subclassing.html).
 We only need to let it inherit from GObject instead of `Button` and let the `new` method accept an integer as parameter.
 
 <span class="filename">Filename: listings/lists/2/integer_object/mod.rs</span>
@@ -63,7 +63,7 @@ We only need to let it inherit from GObject instead of `Button` and let the `new
 ```
 
 We now fill the model with integers from 0 to 100 000.
-Please note, that the models only takes care of the data.
+Please note that the models only takes care of the data.
 Neither `Label` nor any other widget is mentioned here.
 
 <span class="filename">Filename: listings/lists/2/main.rs</span>
@@ -142,16 +142,16 @@ One naive approach would be to bind the properties in the "bind" step of the `Si
 {{#rustdoc_include ../listings/lists/3/main.rs:factory_bind}}
 ```
 
-On first glance, that seems to work.
+At first glance, that seems to work.
 However, as you scroll around and activate a few list elements,
 you will notice that sometimes multiple numbers change even though you only activated a single one.
-This relates to how the views work internally.
+This relates to how the view works internally.
 Not every model item belongs to a single widget, but the widgets get recycled instead as you scroll through the view.
 That also means that in our case, multiple numbers will be bound to the same widget.
 
 Situations like these are so common that GTK offers an alternative to property binding: [expressions](../git/docs/gtk4/struct.Expression.html).
 As a first step it allows us to remove the "bind" step.
-Now let us see how the "setup" step now works.
+Let us see how the "setup" step now works.
 
 <span class="filename">Filename: listings/lists/4/main.rs</span>
 
@@ -163,17 +163,16 @@ An expression describes a reference to a value.
 So when we create a [`ConstantExpression`](../git/docs/gtk4/struct.ConstantExpression.html) of `list_item`, we create a reference to a `ListItem`.
 We then create a [`PropertyExpression`](../git/docs/gtk4/struct.PropertyExpression.html) to get a reference to the "item" property of `list_item`.
 With another `PropertyExpression` we get a reference to the "number" property of the "item" property of `list_item`.
-That already makes the first power of expressions obvious: it allows nested relationships.
+That already makes the first power of expressions obvious: It allows nested relationships.
 Finally, we bind "number" to "label".
 In pseudo code that would be `label->label = list_item->item->number`.
 
-It is worth noting that at the "setup" stage there is no way of knowing which list item belongs to which label.
-Simply because this changes as we scroll through the list.
-And this is the power of expressions.
+It is worth noting that at the "setup" stage there is no way of knowing which list item belongs to which label, simply because this changes as we scroll through the list.
+This is the power of expressions!
 We do not have to define a fixed relationship, the object and properties might not even exist yet.
-We just had to tell it to change the label whenever the number changes that belongs to it.
+We just had to tell it to change the label whenever the number that belongs to it changes.
 That way, we also do not face the problem that multiple labels are bound to the same number.
-When we now activate a label, only the corresponding number gets visibly changed.
+When we now activate a label, only the corresponding number visibly changes.
 
 That is still not everything we can do.
 We can, for example, filter our model to only allow even numbers.
@@ -184,7 +183,7 @@ We can, for example, filter our model to only allow even numbers.
 {{#rustdoc_include ../listings/lists/5/main.rs:filter}}
 ```
 
-Additionally, we can reverse the sorting of our model.
+Additionally, we can reverse the order of our model.
 
 <span class="filename">Filename: listings/lists/5/main.rs</span>
 
@@ -192,7 +191,7 @@ Additionally, we can reverse the sorting of our model.
 {{#rustdoc_include ../listings/lists/5/main.rs:sorter}}
 ```
 
-In order to ensure that our filter and sorter gets updated when we modify the numbers, we call the `changed` method on them.
+To ensure that our filter and sorter get updated when we modify the numbers, we call the `changed` method on them.
 
 <span class="filename">Filename: listings/lists/5/main.rs</span>
 
@@ -200,12 +199,12 @@ In order to ensure that our filter and sorter gets updated when we modify the nu
 {{#rustdoc_include ../listings/lists/5/main.rs:activate}}
 ```
 
-After our changes, the application looks like this.
+After our changes, the application looks like this:
 
 <div style="text-align:center"><img src="img/lists_list_view_2.png"/></div>
 
 We now know how to display a list of data.
 Small amount of elements can be handled by `ListBox` or `FlowBox`.
 These widgets are easy to use and allow, if necessary, to be bound to a model such as [`gio::ListStore`](http://gtk-rs.org/docs/gio/struct.ListStore.html).
-Their data can then be more easily be modified, sorted and filtered.
+Their data can then be modified, sorted and filtered more easily.
 However, if we need the widgets to be scalable we still need to use [`ListView`](../git/docs/gtk4/struct.ListView.html), [`ColumnView`](../git/docs/gtk4/struct.ColumnView.html) or [`GridView`](../git/docs/gtk4/struct.GridView.html) instead.
