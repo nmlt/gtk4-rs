@@ -42,7 +42,7 @@ The following figure demonstrates how this works in practice.
 
 <div style="text-align:center"><img src="img/scalable_lists_concept.png"/></div>
 
-100 000 elements is something `ListBox` will already struggle with, so let us this to demonstrate scalable lists.
+100 000 elements is something `ListBox` will struggle with, so let us this to demonstrate scalable lists.
 
 We start by defining and filling up our model.
 The model is an instance of [`gio::ListStore`](https://gtk-rs.org/docs/gio/struct.ListStore.html).
