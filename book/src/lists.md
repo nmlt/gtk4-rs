@@ -27,8 +27,9 @@ Now we can scroll through our elements.
 
 That was easy enough.
 However, we currently create one widget per element.
-Since creating new widgets takes a bit of time, this can become a problem with many elements.
-`ListBox` can easily handle a few thousands of them, but how could we possibly deal with the infinite amount of posts in a social media timeline?
+Since each widget takes up a bit of resources, many of them can lead to slow and unresponsive user interfaces.
+Depending on the widget type even thousands of elements might not be a problem.
+But how could we possibly deal with the infinite amount of posts in a social media timeline?
 
 We use scalable lists instead!
 
@@ -100,7 +101,7 @@ Then we pass the model and the factory to the [`ListView`](../git/docs/gtk4/stru
 {{#rustdoc_include ../listings/lists/2/main.rs:selection_list}}
 ```
 
-Every `ListView` has to be inside a `ScrolledWindow`, so we are adding it to one.
+Every `ListView` has to be a direct child of a `ScrolledWindow`, so we are adding it to one.
 
 <span class="filename">Filename: listings/lists/2/main.rs</span>
 
